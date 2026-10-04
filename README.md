@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # StayFinder Hotel CRUD - Corrected Version
 
 ## 1. Frontend
@@ -73,3 +74,7 @@ Hotel changes require the configured host account. Sign-in uses an expiring Http
 ## Important
 
 If you see the demo notice, the frontend is working. It means the backend/PostgreSQL connection is not available yet.
+=======
+# hotel-web-app
+just a task
+>>>>>>> 6d347bdba4d92c4a29805d82b812bcdbe6ac11c2
