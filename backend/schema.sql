@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS hotels (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(150) NOT NULL,
+  description TEXT NOT NULL,
+  latitude NUMERIC(10, 7) NOT NULL,
+  longitude NUMERIC(10, 7) NOT NULL,
+  price NUMERIC(10, 2) NOT NULL CHECK (price >= 0),
+  image VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
