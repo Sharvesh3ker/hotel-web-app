@@ -75,7 +75,6 @@ export default function HotelForm({ edit = false }) {
     setPreview(URL.createObjectURL(file));
     setLastTypedField("Photo Upload");
     setLastTypedValue(file.name);
-    setKeystrokes(k => k + 1);
   };
 
   const submit = async e => {

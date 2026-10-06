@@ -521,11 +521,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--purple);
+  background: #10b981;
   color: white;
   padding: 16px 24px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(106, 0, 244, 0.4);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
   font-weight: 700;
   z-index: 1000;
   display: flex;

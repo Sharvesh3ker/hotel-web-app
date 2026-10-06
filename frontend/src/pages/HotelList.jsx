@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHotels, API_URL } from "../store/hotelsSlice";
@@ -8,6 +8,7 @@ import Pagination from "../components/Pagination";
 
 export default function HotelList({ manage = false }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { pageNumber } = useParams();
   const location = useLocation();
   const { hotels, total, status } = useSelector(s => s.hotels);
@@ -36,8 +37,8 @@ export default function HotelList({ manage = false }) {
   }, [location.hash]);
 
   useEffect(() => {
-    dispatch(fetchHotels({ title, minPrice, maxPrice, page, limit }));
-  }, [dispatch, title, minPrice, maxPrice, page]);
+    dispatch(fetchHotels());
+  }, [dispatch]);
 
   useEffect(() => {
     if (notice) {
@@ -92,7 +93,7 @@ export default function HotelList({ manage = false }) {
         throw new Error(result.message || "Delete failed.");
       }
       setNotice("Hotel listing deleted successfully.");
-      dispatch(fetchHotels({ title, minPrice, maxPrice, page, limit }));
+      dispatch(fetchHotels());
     } catch (error) {
       setNotice(error.message || "Failed to delete hotel listing.");
     }
@@ -154,8 +155,15 @@ export default function HotelList({ manage = false }) {
               </label>
             </div>
             <button
+              type="button"
               className="search-button breeze-bold btn-contained"
-              onClick={() => dispatch(fetchHotels({ title, minPrice, maxPrice, page: 1, limit }))}
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(fetchHotels());
+                navigate(manage ? "/manage#stays" : "/#stays");
+                const staysSection = document.getElementById("stays");
+                if (staysSection) staysSection.scrollIntoView({ behavior: "smooth" });
+              }}
             >
               Search Hotels
             </button>
@@ -181,7 +189,7 @@ export default function HotelList({ manage = false }) {
         {visibleHotels.length ? (
           <div className="grid">
             {visibleHotels.map(hotel => (
-              <HotelCard key={hotel.id} hotel={hotel} onDelete={requestDelete} onUpdate={() => dispatch(fetchHotels({ title, minPrice, maxPrice, page, limit }))} onSuccess={setNotice} canManage={manage} />
+              <HotelCard key={hotel.id} hotel={hotel} onDelete={requestDelete} onUpdate={() => dispatch(fetchHotels())} onSuccess={setNotice} canManage={manage} />
             ))}
           </div>
         ) : (

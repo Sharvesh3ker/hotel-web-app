@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  limits: { files: 10, fileSize: 5 * 1024 * 1024 },
+  limits: { files: 10, fileSize: 8 * 1024 * 1024 },
   fileFilter: (req, file, callback) => {
     callback(null, file.mimetype.startsWith("image/"));
   }
@@ -123,6 +123,12 @@ app.put("/hotels/:id", upload.single("image"), async (req, res) => {
   }
 
   try {
+    let oldImage = null;
+    if (file) {
+      const oldHotel = await pool.query("SELECT image FROM hotels WHERE id = $1", [req.params.id]);
+      if (oldHotel.rowCount) oldImage = oldHotel.rows[0].image;
+    }
+
     const values = [
       title.trim(),
       description.trim(),
@@ -149,6 +155,11 @@ app.put("/hotels/:id", upload.single("image"), async (req, res) => {
       return res.status(404).json({ error: "Hotel not found" });
     }
 
+    if (file && oldImage) {
+      const oldPath = path.join(__dirname, oldImage.replace("/uploads", "uploads"));
+      fs.unlink(oldPath, () => {});
+    }
+
     res.json(result.rows[0]);
   } catch (error) {
     if (file) fs.unlink(file.path, () => { });
@@ -160,12 +171,18 @@ app.put("/hotels/:id", upload.single("image"), async (req, res) => {
 app.delete("/hotels/:id", async (req, res) => {
   try {
     const result = await pool.query(
-      "DELETE FROM hotels WHERE id = $1 RETURNING id",
+      "DELETE FROM hotels WHERE id = $1 RETURNING id, image",
       [req.params.id]
     )
 
     if (!result.rowCount) {
       return res.status(404).json({ error: "Hotel not found" });
+    }
+
+    const oldImage = result.rows[0].image;
+    if (oldImage) {
+      const oldPath = path.join(__dirname, oldImage.replace("/uploads", "uploads"));
+      fs.unlink(oldPath, () => {});
     }
 
     res.json({ id: result.rows[0].id });
