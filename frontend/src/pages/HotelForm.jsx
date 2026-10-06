@@ -271,6 +271,26 @@ export default function HotelForm({ edit = false }) {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                   <span>Latitude: <strong>{form.latitude || "--"}</strong> | Longitude: <strong>{form.longitude || "--"}</strong></span>
                 </div>
+                {form.latitude && form.longitude && !isNaN(form.latitude) && !isNaN(form.longitude) ? (
+                  <div style={{ marginTop: "16px", borderRadius: "8px", overflow: "hidden", border: "1px solid var(--line)" }}>
+                    <iframe
+                      width="100%"
+                      height="200"
+                      frameBorder="0"
+                      scrolling="no"
+                      marginHeight="0"
+                      marginWidth="0"
+                      src={`https://www.openstreetmap.org/export/embed.html?bbox=${Number(form.longitude) - 0.01},${Number(form.latitude) - 0.01},${Number(form.longitude) + 0.01},${Number(form.latitude) + 0.01}&layer=mapnik&marker=${form.latitude},${form.longitude}`}
+                      style={{ display: "block", border: "none" }}
+                      title="Live Hotel Location Preview"
+                    ></iframe>
+                  </div>
+                ) : (
+                  <div style={{ marginTop: "16px", borderRadius: "8px", overflow: "hidden", border: "1px solid var(--line)", height: "200px", background: "#f2eff4", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: "8px" }}>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    <span className="breeze-medium" style={{ color: "var(--muted)", fontSize: "0.9rem" }}>Map preview will appear here</span>
+                  </div>
+                )}
               </div>
             </div>
           </section>
