@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # StayFinder Hotel CRUD - Corrected Version
 
 ## 1. Frontend
@@ -74,7 +73,25 @@ Hotel changes require the configured host account. Sign-in uses an expiring Http
 ## Important
 
 If you see the demo notice, the frontend is working. It means the backend/PostgreSQL connection is not available yet.
-=======
-# hotel-web-app
-just a task
->>>>>>> 6d347bdba4d92c4a29805d82b812bcdbe6ac11c2
+
+## Screenshots
+
+### 1. Home Page & Discover
+The main landing page displaying a grid of available hotels. Users can browse through luxury stays and view brief details like title, location, and price.
+![Home Page](./screenshots/home-page.png)
+
+### 2. Hotel Pagination View
+Users can easily navigate through multiple pages of hotel listings using the pagination controls at the bottom of the discovery page.
+![Pagination View](./screenshots/pagination-view.png)
+
+### 3. Add New Hotel - Details Form
+A comprehensive form for hosts to add new properties. Features an interactive layout with a real-time preview of the hotel card on the right.
+![Add Hotel Form](./screenshots/add-hotel-form.png)
+
+### 4. Add New Hotel - Image Upload
+The lower section of the form supports drag-and-drop image uploads for the property's cover photo, with built-in validation for JPG, PNG, and WebP formats.
+![Add Hotel Upload](./screenshots/add-hotel-upload.png)
+
+### 5. Manage Hotels
+The management dashboard where hosts can view their properties, edit details, or remove listings using the dedicated action buttons.
+![Manage Hotels](./screenshots/manage-hotels.png)

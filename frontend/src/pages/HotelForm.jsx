@@ -20,7 +20,6 @@ export default function HotelForm({ edit = false }) {
   const [isSuccess, setIsSuccess] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  // Real-time typing tracking state
   const [lastTypedField, setLastTypedField] = useState("Ready");
   const [lastTypedValue, setLastTypedValue] = useState("");
 
@@ -129,7 +128,7 @@ export default function HotelForm({ edit = false }) {
       )}
 
       <form onSubmit={submit} className="hotel-form form-layout">
-        {/* LEFT SIDE: COMPLETE HOTEL DETAILS & PHOTO FORM */}
+      
         <section className="form-panel details-panel">
           <div className="panel-heading">
             <span className="step-number breeze-bold">1</span>
@@ -211,7 +210,7 @@ export default function HotelForm({ edit = false }) {
             />
           </label>
 
-          {/* Photo Upload Option on Left Side */}
+          
           <div className="photo-upload-section">
             <label className="breeze-bold">Cover Photo Upload</label>
             <label className="upload-drop">
@@ -229,7 +228,7 @@ export default function HotelForm({ edit = false }) {
           </button>
         </section>
 
-        {/* RIGHT SIDE: LIVE HOTEL PREVIEW PANEL */}
+        
         <div className="form-side">
           <section className="form-panel preview-panel">
             <div className="panel-heading">
@@ -240,7 +239,7 @@ export default function HotelForm({ edit = false }) {
               </div>
             </div>
 
-            {/* Complete Hotel Card Live Preview */}
+            
             <div className="card" style={{ marginTop: "20px" }}>
               {(preview || oldImage) ? (
                 <div className="card-image-link" style={{ cursor: "default" }}>
