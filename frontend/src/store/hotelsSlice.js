@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const API_URL = "http://localhost:5000";
-export const hotelImageUrl = image => image?.startsWith("/") ? `${API_URL}${image}` : image;
+export const API_URL = import.meta.env.VITE_API_URL || "/api";
+export const hotelImageUrl = image => image?.startsWith("/") && !image.includes("supabase.co") ? `${API_URL}${image}` : image;
 
 export const fetchHotels = createAsyncThunk(
   "hotels/fetchHotels",
